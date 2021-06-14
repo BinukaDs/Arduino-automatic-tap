@@ -1,0 +1,51 @@
+#define trig 2 //ultrasonic sensor's trig pin
+#define echo 4 //ultrasonic sensor's echo pin
+#define valve 3 //relay's pin
+
+
+
+
+void setup() {
+
+  //Call the serial monitor
+  Serial.begin(9600);
+  //set all the pins as outputs
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
+  pinMode(valve, OUTPUT);
+  digitalWrite(valve,LOW);
+
+
+
+}
+
+void loop() {
+  //ready to use ultrasonic sensor
+  digitalWrite(trig, LOW); 
+  delayMicroseconds(2);
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW);
+
+  long t =  pulseIn(echo, HIGH);
+  long Cm = t / 29 / 2;
+  Serial.print("Cm:");
+  Serial.println(Cm);//prints the distance in the serial monitor
+
+
+
+if(Cm <= 15){
+  digitalWrite(valve,HIGH);//relay is off
+  
+ }
+  else{
+  delay(1000);
+  digitalWrite(valve,LOW);//relay is on
+ }
+
+
+  
+
+
+
+}
